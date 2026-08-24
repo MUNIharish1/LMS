@@ -6,11 +6,15 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String URL =
-            "jdbc:mysql://localhost:3307/library_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String HOST = System.getenv("MYSQLHOST");
+    private static final String PORT = System.getenv("MYSQLPORT");
+    private static final String DATABASE = System.getenv("MYSQLDATABASE");
+    private static final String USER = System.getenv("MYSQLUSER");
+    private static final String PASSWORD = System.getenv("MYSQLPASSWORD");
 
-    private static final String USER = "root";
-    private static final String PASSWORD = "Harish@230407";
+    private static final String URL =
+            "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE
+            + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
     static {
         try {
@@ -21,7 +25,6 @@ public class DBConnection {
     }
 
     private DBConnection() {
-        // Prevent object creation
     }
 
     public static Connection getConnection() throws SQLException {
